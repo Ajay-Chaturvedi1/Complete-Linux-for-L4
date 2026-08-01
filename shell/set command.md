@@ -30,7 +30,9 @@ set
 |-u | set -o nounset | Blocks execution if an unassigned variable is called.|
 |-f | set -o noglob | Disables wildcard expansions (like * or ?) to treat them as text.|
 |-- | N/A | Closes option processing, turning all following arguments into parameters.| 
-If you are trying to solve a specific problem in a Bash script, tell me what your script is doing or the error you are encountering so I can suggest the exact set configuration you need.
+
+
+> If you are trying to solve a specific problem in a Bash script, tell me what your script is doing or the error you are encountering so I can suggest the exact set configuration you need.
 
 ## apart from script on bash shell command line and what is use of this set command
 On the interactive Bash shell command line, the set command is primarily used to customize your current terminal environment, control command history, change editing modes, and manipulate arguments.
