@@ -6,6 +6,18 @@ chris pts/0 2019-10-21 22:45 (:0.0)
 $ grep chris /etc/passwd
 chris:x:13597:13597:Chris Negus:/home/chris:/bin/bash
 ```
+You can see information about your current login session by using the who command. In
+the following example, the -u option says to add information about idle time and the process
+ID and -H asks that a header be printed:
+```bash
+$ who -uH
+NAME LINE TIME IDLE PID COMMENT
+chris tty1 Jan 13 20:57 . 2019
+```
+The output from this who command shows that the user chris is logged in on tty1
+(which is the first virtual console on the monitor connected to the computer) and his login
+session began at 20:57 on January 13. The IDLE time shows how long the shell has been
+open without any command being typed (the dot indicates that it is currently active).
 
 
 
@@ -66,3 +78,24 @@ The Command:
 sudo -u apache -s /bin/bash /opt/backup_script.sh
 ```
 This runs the script securely as the apache user, even though apache cannot log in on its own
+
+### Additional commands:
+```bash
+$ uname
+Linux
+$ uname -a
+Linux mydesktop 5.3.7-301.fc31.x86_64 #1 SMP Mon Oct 21 19:18:58 UTC
+2019 x86_64 x86_64 x86_64 GNU/Linux
+$ date
+Wed 04 Mar 2020 09:06:25 PM EST
+$ date +'%d/%m/%y'
+04/03/20
+$ date +'%A, %B %d, %Y'
+Wednesday, March 04, 2020
+```
+To find out information about your identity, use the id command as follows:
+```bash 
+$ id
+uid=1000(chris) gid=1000(chris) groups=1005(sales), 7(lp)
+```
+
