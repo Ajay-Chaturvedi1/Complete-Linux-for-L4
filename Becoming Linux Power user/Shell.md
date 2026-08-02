@@ -2,6 +2,9 @@
 
 The Shell is a command-line interpreter (or command processor) that provides a user interface to the Linux operating system. It reads user commands, interprets them, and executes them either directly or by invoking other programs. The shell acts as an intermediary between the user and the kernel by translating human-readable commands into system calls that the kernel can understand.
 In contrast, the Kernel is the core component of the Linux operating system. It is a low-level program that manages hardware resources (CPU, memory, I/O devices, etc.), handles process scheduling, memory management, file system operations, and provides essential services through system calls. While the shell is a user-space program that can be replaced or customized (e.g., bash, zsh, fish), the kernel runs in privileged kernel-space mode and is the same for all shells on a given Linux system
+
+
+The shell is a commnad line interpreter (command processor that)
 ---
 In Linux, a Shell is a command-line interpreter application that acts as an interface between the user and the core operating system. It reads the text commands you type, translates them into system calls that the computer can process, and returns the output to your screen.
 The fundamental difference is their role and location in the operating system: the Shell is the outermost user interface layer, while the Kernel is the innermost core program that directly controls and manages the physical hardware.
