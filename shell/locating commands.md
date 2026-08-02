@@ -84,3 +84,24 @@ users’ paths). The last directory shown is the bin directory in the user’s h
 
 
 command name at your shell prompt. To make commands available to all users, add them to /usr/local/bin.
+
+## Interview Question:-
+### 🥈 Mid-Level Troubleshooting Scenarios
+Question: "A user installed a custom binary in `/usr/local/bin/mycmd`. They can run it by typing `/usr/local/bin/mycmd`, but when they just type `mycmd`, the system says 'command not found'. What is the issue and how do you fix it?"
+Answer: The directory `/usr/local/bin` is missing from that specific user's `$PATH `environment variable. You fix it by adding `export PATH=$PATH:/usr/local/bin` to their `~/.bashrc` file and running `source ~/.bashrc`.
+
+Question: "You just installed a new utility on a production server. You try to use locate to find its configuration file, but it returns nothing. Why, and how do you resolve it immediately without waiting?"
+Answer: The locate utility relies on a daily cron job to index the filesystem database (`mlocate.db`). Since the tool was just installed, the database doesn't know it exists yet. I would run the `sudo updatedb` command to manually force a real-time indexing of the filesystem.
+
+Question: "What is the difference between `which` and `type -p`?"
+Answer: `which` is an external command that only looks through directories in the `$PATH`. `type -p` is a Bash shell built-in. If a command is a shell built-in (like cd), which might fail or give misleading results, whereas type correctly identifies its nature.
+
+###🥇 Senior & Security-Focused Questions
+Question: "Why is it considered a major security risk to include dot (.) or a blank space at the beginning of the root user's $PATH variable?"
+Answer: Including a dot (.) tells the shell to look in the current working directory for binaries before checking secure directories like /usr/bin. If a malicious actor drops a fake, compromised executable named ls in a shared directory (like /tmp), and root navigates there and types ls, the system will execute the malicious script with full root privileges.
+
+Question: "You need to run a command, but you don't know what package provides it, and it isn't installed on the server yet. How do you find the command's package in RHEL 9?"
+Answer: Use the DNF package manager's "provides" feature. For example, if you need the `semanage` command but it's missing, you run `dnf provides */semanage`   or `dnf whatprovides semanage ` . The system will query the repositories and tell you exactly which RPM package to install.
+
+Question: "If a junior administrator creates a custom script, assigns it executable permissions (chmod +x script.sh), sits inside the exact same directory as the script, and types script.sh, why does the terminal say 'command not found'?"
+Answer: Linux does not look in the current working directory by default for security reasons. Even if you are sitting inside the directory, you must explicitly tell the shell where to find it by using a relative path: ./script.sh.
