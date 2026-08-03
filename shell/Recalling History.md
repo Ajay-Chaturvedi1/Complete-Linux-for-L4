@@ -1,3 +1,17 @@
+To view your history list, use the history command. Enter the command without options
+or followed by a number to list that many of the most recent commands. For example:
+```bash
+$ history 8
+382 date
+383 ls /usr/bin | sort -a | more
+384 man sort
+385 cd /usr/local/bin
+386 man more
+387 useradd -m /home/chris -u 101 chris
+388 passwd chris
+389 history 8
+```
+
 In a RHEL 9 system administration interview, demonstrating mastery over the command history shows that you are efficient, fast on the keyboard, and know how to audit past actions.
 Here is the comprehensive guide to command history, structured for your interview preparation.
 ##🧠 The Core Mechanics: How History Works
@@ -25,11 +39,13 @@ You should be ready to list these methods, ranging from basic scrolling to advan
    - How to use: Press Ctrl + R, type nginx, and press Enter to run it, or use Ctrl + R repeatedly to cycle backward through older matches.
 
 4. Reusing Arguments (Alt + . or !$)
-5. 
    - What it does: Frequently, you want to run a different command on the same file you just used.
    - Example: If you just ran `vi /etc/ssh/sshd_config`, you can type `cat` and then press `Alt + .` (or type `!$`) to instantly pull `/etc/ssh/sshd_config` into the new command line.
+5. Ctrl+S (Forward incremental search)
+   - This is the same as the preceding function but for
+   - forward search. (It may not work in all instances.)
 
-6. Arrow Keys and fc
+7. Arrow Keys and fc
    - Arrow Keys: Up and Down arrows navigate line-by-line.
    - fc (Fix Command): Typing fc opens your last command inside the default text editor (like vi). Once you edit and save-close the file, the shell immediately executes the corrected command.
 
