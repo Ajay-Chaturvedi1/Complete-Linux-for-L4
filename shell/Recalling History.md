@@ -12,6 +12,14 @@ $ history 8
 389 history 8
 ```
 
+>Note:
+>Some people disable the history feature for the root user by setting the HISTFILE shell variable to /dev/null
+>or simply leaving HISTSIZE blank. This prevents information about the root user’s activities from potentially being
+>exploited. If you are an administrative user with root privileges, you may want to consider emptying your file upon
+>exiting as well for the same reasons. Also, because shell history is stored permanently when the shell exits properly,
+>you can prevent storing a shell’s history by killing a shell. For example, to kill a shell with process ID 1234, type
+>kill -9 1234 from any shell.
+
 In a RHEL 9 system administration interview, demonstrating mastery over the command history shows that you are efficient, fast on the keyboard, and know how to audit past actions.
 Here is the comprehensive guide to command history, structured for your interview preparation.
 ##🧠 The Core Mechanics: How History Works
