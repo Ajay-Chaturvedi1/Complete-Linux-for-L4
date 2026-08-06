@@ -170,3 +170,94 @@ Q4. What is the difference between a local variable and an environment variable?
 Q6. What does echo ${USER}_backup do, and why are curly braces used here?
 Answer: It prints the username followed by _backup (e.g., root_backup). The curly braces {} are used for brace protection. Without them, Bash would look for a variable named $USER_backup, which does not exist, resulting in blank output.
 
+### Creating and using aliases
+Using the alias command, you can effectively create a shortcut to any command and
+options that you want to run later. You can add and list aliases with the alias command.
+Consider the following examples of using alias from a bash shell:
+``` bash
+$ alias p='pwd ; ls –CF'
+$ alias rm='rm -i'
+```
+In the first example, the letter p is assigned to run the command `pwd`and then to run
+`ls -CF` to print the current working directory and list its contents in column form.
+
+The second example runs the rm command with the -i option each time you type
+rm. (This is an alias that is often set automatically for the root user. Instead of just
+removing files, you are prompted for each individual file removal. This prevents you from
+automatically removing all of the files in a directory by mistakenly typing something
+such as rm *.)
+While you are in the shell, you can check which aliases are set by typing the alias
+command. If you want to remove an alias, use unalias. (Remember that if the alias
+is set in a configuration file, it will be set again when you open another shell.)
+
+
+
+
+### TABLE 3.5 Common Shell Environment Variables
+|Variable | Description|
+|----------|------------|
+|BASH |This contains the full pathname of the bash command. This is usually
+/bin/bash.|
+|BASH_VERSION |This is a number representing the current version of the
+bash command.|
+|EUID | This is the effective user ID number of the current user. It is assigned
+when the shell starts, based on the user’s entry in the /etc/passwd file.
+|FCEDIT| If set, this variable indicates the text editor used by the fc command
+to edit history commands. If this variable isn’t set, the vi
+command is used.|
+|HISTFILE | This is the location of your history file. It is typically located at $HOME/.
+bash_history.|
+|HISTFILESIZE | This is the number of history entries that can be stored. After this
+number is reached, the oldest commands are discarded. The default
+value is 1000.|
+|HISTCMD| This returns the number of the current command in the history list.|
+|HOME |This is your home directory. It is your current working directory each
+time you log in or type the cd command with any options.|
+|HOSTTYPE |This is a value that describes the computer architecture on which
+the Linux system is running. For Intel-compatible PCs, the value is
+i386, i486, i586, i686, or something like i386-linux. For AMD 64-bit
+machines, the value is x86_64.|
+|MAIL| This is the location of your mailbox file. The file is typically your username
+in the /var/spool/mail directory.|
+|OLDPWD| This is the directory that was the working directory before you changed to the current working directory.
+|OSTYPE |This name identifies the current operating system. For Fedora Linux,
+the OSTYPE value is either linux or linux-gnu, depending on the
+type of shell you are using. (Bash can run on other operating systems
+as well.)|
+|PATH| This is the colon-separated list of directories used to find commands
+that you type. The default value for regular users varies for different
+distributions but typically includes the following: /bin:/usr/bin:/
+usr/local/bin:/usr/bin/X11:/usr/X11R6/bin:~/bin. You need to
+type the full path or a relative path to a command that you want to run
+which is not in your PATH. For the root user, the value also includes /
+sbin, /usr/sbin, and /usr/local/sbin.|
+|PPID |This is the process ID of the command that started the current shell (for
+example, the Terminal window containing the shell).|
+|PROMPT_COMMAND | This can be set to a command name that is run each time before your
+shell prompt is displayed. Setting PROMPT_COMMAND=date lists the
+current date/time before the prompt appears.|
+|PS1| This sets the value of your shell prompt. There are many items that you
+can read into your prompt (date, time, username, hostname, and so on).
+Sometimes a command requires additional prompts, which you can set
+with the variables PS2, PS3, and so on.|
+|PWD| This is the directory that is assigned as your current directory. This value
+changes each time you change directories using the cd command.|
+|RANDOM |Accessing this variable causes a random number to be generated. The
+number is between 0 and 99999.|
+|SECONDS| This is the number of seconds since the time the shell was started. |
+|SHLVL | This is the number of shell levels associated with the current shell
+session. When you log in to the shell, the SHLVL is 1. Each time you
+start a new bash command (by, for example, using su to become a new
+user, or by simply typing bash), this number is incremented.|
+|TMOUT | This can be set to a number representing the number of seconds the
+shell can be idle without receiving input. After the number of seconds
+is reached, the shell exits. This security feature makes it less likely for
+unattended shells to be accessed by unauthorized people. (This must
+be set in the login shell for it actually to cause the shell to log out the
+user.)|
+
+### Exiting the shell
+To exit the shell when you are finished, type exit or press Ctrl+D. If you go to the shell
+from a Terminal window and you are using the original shell from that window, exiting
+causes the Terminal window to close. If you are at a virtual console, the shell exits and
+returns you to a login prompt.
