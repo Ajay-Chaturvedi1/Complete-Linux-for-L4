@@ -65,3 +65,9 @@ to be bothered to step through each file you delete. You have other options as f
 cp, or mv with a backslash in front of it (\rm bigdir). The backslash causes any command to run unaliased.
 ■■ Another alternative with mv is to use the -b option. With -b, if a file of the same name exists at the destination,
 a backup copy of the old file is made before the new file is moved there.
+
+# Table 
+Command	Primary Function	Key L4-Level Options & Considerations 
+cp	Copy files or directories.	-p (preserve attributes), -a (archive mode, for recursive copies), -u (update, copy only when source is newer). Critical for backup and replication tasks.
+mv	Move (or rename) files/directories.	-i (interactive, prompts before overwrite), -f (force, no prompt), -u (update, move only if newer).
+rm	Remove (delete) files/directories.	-r (recursive, mandatory for directories), -f (force, suppress prompts), -i (interactive). Always used with extreme caution.
