@@ -1,6 +1,7 @@
 It’s almost impossible to use Linux for any period of time and not need a text editor because, as
 noted earlier, most Linux configuration files are plain-text files that you will almost certainly need
 to change manually at some point.
+
 If you are using a GNOME desktop, you can run `gedit` (type `gedit` into the Search box and press
 Enter, or select Applications ➪ Accessories ➪ gedit), which is fairly intuitive for editing text.
 
