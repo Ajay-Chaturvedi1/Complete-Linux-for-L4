@@ -56,6 +56,63 @@ and S representing a sleeping process.
 > Several other values can appear under the STAT column. For example, a plus sign (+) indicates that the process is
 > associated with the foreground operations.
 
+The USER column shows the name of the user who started the process. Each process is
+represented by a unique ID number referred to as a process ID, or PID. You can use the PID
+if you ever need to kill a runaway process or send another kind of signal to a process. The
+%CPU and %MEM columns show the percentages of the processor and random access memory,
+respectively, that the process is consuming.
+VSZ (virtual set size) shows the size of the image process (in kilobytes), and RSS (resident
+set size) shows the size of the program in memory. The VSZ and RSS sizes may be different
+because VSZ is the amount of memory allocated for the process, whereas RSS is the
+amount that is actually being used. RSS memory represents physical memory that cannot
+be swapped.
+START shows the time the process began running, and TIME shows the cumulative
+system time used. (Many commands consume very little CPU time, as reflected by 0:00 for
+processes that haven’t even used a whole second of CPU time.)
+Many processes running on a computer are not associated with a terminal. A normal Linux
+system has many processes running in the background. Background system processes perform
+such tasks as logging system activity or listening for data coming in from the network.
+They are often started when Linux boots up and run continuously until the system
+shuts down. Likewise, logging into a Linux desktop causes many background processes to
+kick off, such as processes for managing audio, desktop panels, authentication, and other
+desktop features.
+To page through all of the processes running on your Linux system for the current user, add
+the pipe (|) and the less command to ps ux:
+$ ps ux | less
+To page through all processes running for all users on your system, use the ps aux
+command as follows:
+$ ps aux | less
+A pipe (located above the backslash character on the keyboard) enables you to direct the
+output of one command to be the input of the next command. In this example, the output
+of the ps command (a list of processes) is directed to the less command, which enables
+you to page through that information. Use the spacebar to page through and type q to end
+the list. You can also use the arrow keys to move one line at a time through the output.
+The ps command can be customized to display selected columns of information and to
+sort information by one of those columns. Using the -o option, you can use keywords to
+indicate the columns you want to list with ps. For example, the next example lists every
+
+
+running process (-e) and then follows the -o option with every column of information I
+want to display, including the process ID (pid), username (user), user ID (uid), group
+name (group), group ID (gid), virtual memory allocated (vsz), resident memory used
+(rss), and the full command line that was run (comm). By default, output is sorted by process
+ID number.
+$ ps -eo pid,user,uid,group,gid,vsz,rss,comm | less
+PID USER UID GROUP GID VSZ RSS COMMAND
+1 root 0 root 0 187660 13296 systemd
+2 root 0 root 0 0 0 kthreadd
+If you want to sort by a specific column, you can use the sort= option. For example, to see
+which processes are using the most memory, I sort by the vsz field. That sorts from lowest
+memory use to highest. Because I want to see the highest ones first, I put a hyphen in front
+of that option to sort (sort=-vsz).
+$ ps -eo pid,user,group,gid,vsz,rss,comm --sort=-vsz | head
+PID USER GROUP GID VSZ RSS COMMAND
+2366 chris chris 1000 3720060 317060 gnome-shell
+1580 gdm gdm 42 3524304 205796 gnome-shell
+3030 chris chris 1000 2456968 248340 firefox
+3233 chris chris 1000 2314388 316252 Web Content
+Refer to the ps man page for information on other columns of information by which you
+can display and sort.
 
 
 
