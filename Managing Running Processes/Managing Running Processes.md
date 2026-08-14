@@ -280,6 +280,44 @@ of the same name.
 
 
 
+Setting processor priority with nice and renice
+When the Linux kernel tries to decide which running processes get access to the CPUs on
+your system, one of the things it takes into account is the nice value set on the process.
+Every process running on your system has a nice value between –20 and 19. By default, the
+nice value is set to 0. Here are a few facts about nice values:
+■■ The lower the nice value, the more access to the CPUs the process has. In other
+words, the nicer a process is, the less CPU attention it gets. So, a –20 nice value
+gets more attention than a process with a 19 nice value.
+■■ A regular user can set nice values only from 0 to 19. No negative values are allowed.
+So a regular user can’t ask for a value that gives a process more attention than most
+processes get by default.
+■■ A regular user can set the nice value higher, not lower. So, for example, if a user
+sets the nice value on a process to 10 and then later wants to set it back to 5, that
+action will fail. Likewise, any attempt to set a negative value will fail.
+■■ A regular user can set the nice value only on the user’s own processes.
+■■ The root user can set the nice value on any process to any valid value, up or down.
+You can use the nice command to run a command with a particular nice value. When a
+process is running, you can change the nice value using the renice command, along with
+the process ID of the process, as in the example that follows:
+# nice -n +5 updatedb &
+The updatedb command is used to generate the locate database manually by gathering
+names of files throughout the filesystem. In this case, I just wanted updatedb to run in
+the background (&) and not interrupt work being done by other processes on the system. I
+ran the top command to make sure that the nice value was set properly:
+PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+20284 root 25 5 98.7m 932 644 D 2.7 0.0 0:00.96 updatedb
+Notice that under the NI column, the nice value is set to 5. Because the command was run
+as the root user, the root user can lower the nice value later by using the renice command.
+(Remember that a regular user can’t reduce the nice value or ever set it to a negative number.)
+Here’s how you would change the nice value for the updatedb command just run to –5:
+# renice -n -5 20284
+
+If you ran the top command again, you might notice that the updatedb command is now
+at or near the top of the list of processes consuming CPU time because you gave it priority
+to get more CPU attention
+
+
+
 For an L4-level interview, questions about the top command are designed to go beyond simple recall of what it does. The interviewer will expect you to demonstrate practical troubleshooting skills, a deep understanding of the system metrics it displays, and how to use it as a starting point for diagnosing complex performance issues.
 
 Here is a breakdown of the types of questions you can expect.
