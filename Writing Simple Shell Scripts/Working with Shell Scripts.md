@@ -112,29 +112,29 @@ time the variable is read.
 
 
 
-Escaping Special Shell Characters
-Keep in mind that characters such as the dollar sign ($), back-tick (`), asterisk (*), exclamation point (!),
-and others have special meaning to the shell, which you will see as you proceed through this chapter.
-On some occasions, you want the shell to use these characters’ special meaning and other times you
-don’t. For example, if you typed echo $HOME, the shell would think that you meant to display the name
-of your home directory (stored in the $HOME variable) to the screen (such as /home/chris) because a
-$ indicates a variable name follows that character.
-
-If you wanted literally to show $HOME, you would need to escape the $. Typing echo ’$HOME' or echo
-\$HOME would literally show $HOME on the screen. So, if you want to have the shell interpret a single
-character literally, precede it with a backslash (\). To have a whole set of characters interpreted literally,
-surround those characters with single quotes (').
-
-
-Using double quotes is a bit trickier. Surround a set of text with double quotes if you want all but a few
-characters used literally. For example, with text surrounded with double quotes, dollar signs ($), backticks
-(`), and exclamation points (!) are interpreted specially, but other characters (such as an asterisk)
-are not. Type these three lines to see the different output (shown on the right):
-```bash
-echo '$HOME * `date`' $HOME * `date`
-echo ″$HOME * `date`″ /home/chris * Tue Jan 21 16:56:52 EDT 2020
-echo $HOME * `date` /home/chris file1 file2 Tue Jan 21 16:56:52 EDT 2020
-```
+> ### Escaping Special Shell Characters
+> Keep in mind that characters such as the dollar sign ($), back-tick (`), asterisk (*), exclamation point (!),
+> and others have special meaning to the shell, which you will see as you proceed through this chapter.
+> On some occasions, you want the shell to use these characters’ special meaning and other times you
+> don’t. For example, if you typed echo $HOME, the shell would think that you meant to display the name
+> of your home directory (stored in the $HOME variable) to the screen (such as /home/chris) because a
+> $ indicates a variable name follows that character.
+> 
+> If you wanted literally to show $HOME, you would need to escape the $. Typing echo ’$HOME' or echo
+> \$HOME would literally show $HOME on the screen. So, if you want to have the shell interpret a single
+> character literally, precede it with a backslash (\). To have a whole set of characters interpreted literally,
+> surround those characters with single quotes (').
+>
+>
+> Using double quotes is a bit trickier. Surround a set of text with double quotes if you want all but a few
+> characters used literally. For example, with text surrounded with double quotes, dollar signs ($), backticks
+> (`), and exclamation points (!) are interpreted specially, but other characters (such as an asterisk)
+> are not. Type these three lines to see the different output (shown on the right):
+> ```bash
+> echo '$HOME * `date`' $HOME * `date`
+> echo ″$HOME * `date`″ /home/chris * Tue Jan 21 16:56:52 EDT 2020
+> echo $HOME * `date` /home/chris file1 file2 Tue Jan 21 16:56:52 EDT 2020
+> ```
 
 
 
