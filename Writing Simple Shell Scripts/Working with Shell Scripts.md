@@ -1,62 +1,77 @@
 You’d never get any work done if you typed every command that needs to be run on your Linux
 system when it starts. Likewise, you could work more efficiently if you grouped together sets
 of commands that you run all the time. Shell scripts can handle these tasks.
+
 A shell script is a group of commands, functions, variables, or just about anything else you can use
 from a shell. These items are typed into a plain-text file. That file can then be run as a command.
 Linux systems have traditionally used system initialization shell scripts during system startup to run
 commands needed to get services going. You can create your own shell scripts to automate the tasks
 that you need to do regularly.
+
 For decades, building shell scripts was the primary skill needed to join together sets of tasks in UNIX
 and Linux systems. As demands for configuring Linux systems grew beyond single-system setups to
 complex, automated cluster configurations, more structured methods have arisen. These methods
 include Ansible playbooks and Kubernetes YAML files, described later in cloud-related chapters. That
 said, writing shell scripts is still the best next step from running individual commands to building
 repeatable tasks in Linux systems.
+
 This chapter provides a rudimentary overview of the inner workings of shell scripts and how they can
 be used. You learn how simple scripts can be harnessed to a scheduling facility (such as cron or at)
 to simplify administrative tasks or just run on demand as they are needed.
 
 
-Understanding Shell Scripts
+### Understanding Shell Scripts
+
 Have you ever had a task that you needed to do over and over that took lots of typing on the
 command line? Do you ever think to yourself, “Wow, I wish I could just type one command to do all
 this”? Maybe a shell script is what you’re after.
+
 Shell scripts are the equivalent of batch files in Windows and can contain long lists of commands,
 complex flow control, arithmetic evaluations, user-defined variables, user-defined
 functions, and sophisticated condition testing. Shell scripts are capable of handling everything
 from simple one-line commands to something as complex as starting up a Linux
 system. Although dozens of different shells are available in Linux, the default shell for
 most Linux systems is called bash, the Bourne Again SHell.
-Executing and debugging shell scripts
+
+### Executing and debugging shell scripts
+
 One of the primary advantages of shell scripts is that they can be opened in any text editor
 to see what they do. A big disadvantage is that large or complex shell scripts often execute
 more slowly than compiled programs. You can execute a shell script in two basic ways:
+
 ■■ The filename is used as an argument to the shell (as in bash myscript). In this
 method, the file does not need to be executable; it just contains a list of shell commands.
 The shell specified on the command line is used to interpret the commands
 in the script file. This is most common for quick, simple tasks.
+
 ■■ The shell script may also have the name of the interpreter placed in the first line
 of the script preceded by #! (as in #!/bin/bash) and have the execute bit of the
 file containing the script set (using chmod +x filename). You can then run your
 script just as you would any other program in your path simply by typing the name
 of the script on the command line.
+
 When scripts are executed in either manner, options for the program may be specified on
 the command line. Anything following the name of the script is referred to as a commandline
 argument.
+
 As with writing any software, there is no substitute for clear and thoughtful design and
 lots of comments. The pound sign (#) prefaces comments and can take up an entire line or
 exist on the same line after script code. It is best to implement more complex shell scripts
 in stages, making sure that the logic is sound at each step before continuing. Here are a
 few good, concise tips to make sure that things are working as expected during testing:
+
 ■■ In some cases, you can place an echo statement at the beginning of lines within
 the body of a loop and surround the command with quotes. That way, rather than
 executing the code, you can see what will be executed without making any permanent
 changes.
+
 ■■ To achieve the same goal, you can place dummy echo statements throughout the
 code. If these lines get printed, you know the correct logic branch is being taken.
+
 ■■ You can use set -x near the beginning of the script to display each command that
 is executed or launch your scripts using
 $ bash -x myscript
+
 ■■ Because useful scripts have a tendency to grow over time, keeping your code readable
 as you go along is extremely important. Do what you can to keep the logic of
 your code clean and easy to follow.
