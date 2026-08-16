@@ -60,18 +60,19 @@ exist on the same line after script code. It is best to implement more complex s
 in stages, making sure that the logic is sound at each step before continuing. Here are a
 few good, concise tips to make sure that things are working as expected during testing:
 
-■■ In some cases, you can place an echo statement at the beginning of lines within
+■■ In some cases, you can place an `echo` statement at the beginning of lines within
 the body of a loop and surround the command with quotes. That way, rather than
 executing the code, you can see what will be executed without making any permanent
 changes.
 
-■■ To achieve the same goal, you can place dummy echo statements throughout the
+■■ To achieve the same goal, you can place dummy `echo` statements throughout the
 code. If these lines get printed, you know the correct logic branch is being taken.
 
 ■■ You can use set -x near the beginning of the script to display each command that
 is executed or launch your scripts using
+```bash
 $ bash -x myscript
-
+```
 ■■ Because useful scripts have a tendency to grow over time, keeping your code readable
 as you go along is extremely important. Do what you can to keep the logic of
 your code clean and easy to follow.
@@ -79,25 +80,34 @@ your code clean and easy to follow.
 
 
 
-Understanding shell variables
+### Understanding shell variables
 Often within a shell script, you want to reuse certain items of information. During the
 course of processing the shell script, the name or number representing this information
 may change. To store information used by a shell script in such a way that it can be easily
 reused, you can set variables. Variable names within shell scripts are case sensitive and can
 be defined in the following manner:
+```bash
 NAME=value
+```
 The first part of a variable is the variable name, and the second part is the value set for
 that name. Be sure that the NAME and value touch the equal sign, without any spaces.
+
 Variables can be assigned from constants, such as text, numbers, and underscores. This
 is useful for initializing values or saving lots of typing for long constants. The following
 examples show variables set to a string of characters (CITY) and a numeric value (PI):
+```bash
 CITY="Springfield"
 PI=3.14159265
-Variables can contain the output of a command or command sequence. You can accomplish
+```
+
+- Variables can contain the output of a command or command sequence. You can accomplish
 this by preceding the command with a dollar sign and open parenthesis, following it with
-a closing parenthesis. For example, MYDATE=$(date)assigns the output from the date
-command to the MYDATE variable. Enclosing the command in back-ticks (`) can have the
-same effect. In this case, the date command is run when the variable is set and not each
+a closing parenthesis. For example, `MYDATE=$(date)`
+
+- assigns the output from the `date` command to the `MYDATE` variable. Enclosing the command in back-ticks (`) can have the
+same effect.
+
+In this case, the `date` command is run when the variable is set and not each
 time the variable is read.
 
 
