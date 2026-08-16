@@ -140,18 +140,21 @@ time the variable is read.
 
 
 Using variables is a great way to get information that can change from computer to
-computer or from day to day. The following example sets the output of the uname -n
+computer or from day to day. The following example sets the output of the `uname -n`
 command to the MACHINE variable. Then I use parentheses to set NUM_FILES to the
-number of files in the current directory by piping (|) the output of the ls command to the
-word count command (wc -l):
+number of files in the current directory by piping `(|)` the output of the ls command to the
+word count command `(wc -l)`:
 
-
+```bash
 MACHINE=`uname -n`
 NUM_FILES=$(/bin/ls | wc -l)
+```
 Variables can also contain the value of other variables. This is useful when you have to preserve
 a value that will change so that you can use it later in the script. Here, BALANCE is
 set to the value of the CurBalance variable:
+```bash
 BALANCE="$CurBalance"
+```
 
 > Note
 > When assigning variables, use only the variable name (for example, BALANCE). When you reference a variable,
@@ -224,15 +227,17 @@ Bash has special rules that allow you to expand the value of a variable in diffe
 Going into all of the rules is probably overkill for a quick introduction to shell scripts, but
 the following list presents some common constructs you’re likely to see in bash scripts that
 you find on your Linux system.
+```bash
 ${var:-value}: If variable is unset or empty, expand this to value.
 ${var#pattern}: Chop the shortest match for pattern from the front of var’s value.
 ${var##pattern}: Chop the longest match for pattern from the front of var’s value.
 ${var%pattern}: Chop the shortest match for pattern from the end of var’s value.
 ${var%%pattern}: Chop the longest match for pattern from the end of var’s value.
-
+```
 
 
 Try typing the following commands from a shell to test how parameter expansion works:
+```bash
 $ THIS="Example"
 $ THIS=${THIS:-"Not Set"}
 $ THAT=${THAT:-"Not Set"}
@@ -240,12 +245,13 @@ $ echo $THIS
 Example
 $ echo $THAT
 Not Set
+```
+
 In the examples here, the THIS variable is initially set to the word Example. In the next
 two lines, the THIS and THAT variables are set to their current values or to Not Set,
 if they are not currently set. Notice that because I just set THIS to the string Example,
 when I echo the value of THIS it appears as Example. However, because THAT was not set,
 it appears as Not Set.
-
 
 > Note
 > For the rest of this section, I show how variables and commands may appear in a shell script. To try out any of those
@@ -258,11 +264,14 @@ the filename is cut down simply to myfile; then, in the EXTENSION variable, the 
 extension is set to txt. (To try these out, you can type them at a shell prompt as in the
 previous example and echo the value of each variable to see how it is set.) Type the code on
 the left. The material on the right side describes the action.
+```bash
 MYFILENAME=/home/digby/myfile.txt: Sets the value of MYFILENAME
 FILE=${MYFILENAME##*/}: FILE becomes myfile.txt
 DIR=${MYFILENAME%/*}: DIR becomes /home/digby
 NAME=${FILE%.*}: NAME becomes myfile
 EXTENSION=${FILE##*.}: EXTENSION becomes txt
+```
+
 Performing arithmetic in shell scripts
 Bash uses untyped variables, meaning it normally treats variables as strings of text, but you
 can change them on the fly if you want it to.
@@ -275,9 +284,10 @@ Integer arithmetic can be performed using the built-in let command or through th
 external expr or bc commands. After setting the variable BIGNUM value to 1024, the
 
 
-three commands that follow would all store the value 64 in the RESULT variable. The bc
+three commands that follow would all store the value 64 in the RESULT variable. The `bc`
 command is a calculator application that is available in most Linux distributions. The last
 command gets a random number between 0 and 10 and echoes the results back to you.
+```bash
 BIGNUM=1024
 let RESULT=$BIGNUM/16
 RESULT=`expr $BIGNUM / 16`
@@ -289,6 +299,7 @@ $ I=0
 $ echo "The value of I after increment is $((++I))"
 The value of I after increment is 1
 $ echo "The value of I before and after increment is $((I++)) and $I"
+```
 The value of I before and after increment is 1 and 2
 Repeat either of those commands to continue to increment the value of $I.
 
@@ -552,11 +563,13 @@ The following example lists all home directories of users on your system. This g
 command line pipes a list of regular users from the /etc/passwd file and displays the
 sixth field (-f6) as delimited by a colon (-d':'). The hyphen at the end tells cut to read
 from standard input (from the pipe).
-
-
+```bash
 $ grep /home /etc/passwd | cut -d':' -f6 -
+```
+```output
 /home/chris
 /home/joe
+```
 Translate or delete characters (tr)
 The tr command is a character-based translator that can be used to replace one character
 or set of characters with another or to remove a character from a line of text.
@@ -582,26 +595,33 @@ You can use the sed command essentially to do what I did earlier with the grep e
 search the /etc/passwd file for the word home. Here the sed command searches the
 entire /etc/passwd file, searches for the word home, and prints any line containing the
 word home:
+```bash
 $ sed -n '/home/p' /etc/passwd
 chris:x:1000:1000:Chris Negus:/home/chris:/bin/bash
 joe:x:1001:1001:Joe Smith:/home/joe:/bin/bash
+```
 In this next example, sed searches the file somefile.txt and replaces every instance of
 the string Mac with Linux. Notice that the letter g is needed at the end of the substitution
 command to cause every occurrence of Mac on each line to be changed to Linux.
 (Otherwise, only the first instance of Mac on each line is changed.) The output is then sent
 to the fixed_file.txt file. The output from sed goes to stdout, so this command redirects
 the output to a file for safekeeping.
+```bash
 $ sed 's/Mac/Linux/g' somefile.txt > fixed_file.txt
-
+```
 
 
 You can get the same result using a pipe:
+```bash
 $ cat somefile.txt | sed 's/Mac/Linux/g' > fixed_file.txt
+```
 By searching for a pattern and replacing it with a null pattern, you delete the original
 pattern. This example searches the contents of the somefile.txt file and replaces extra
 blank spaces at the end of each line (s/ *$) with nothing (//). Results go to the fixed_
 file.txt file.
+```bash
 $ cat somefile.txt | sed 's/ *$//' > fixed_file.txt
+```
 Using simple shell scripts
 Sometimes, the simplest of scripts can be the most useful. If you type the same sequence
 of commands repetitively, it makes sense to store those commands (once!) in a file. The following
@@ -609,6 +629,7 @@ sections offer a couple of simple, but useful, shell scripts.
 Telephone list
 This idea has been handed down from generation to generation of old UNIX hacks. It’s
 really quite simple, but it employs several of the concepts just introduced.
+```bash
 #!/bin/bash
 # (@)/ph
 # A very simple telephone list
@@ -643,22 +664,26 @@ grep -i "$*" $PHONELIST
 fi
 fi
 exit 0
+```
 So, if you created the telephone list file as ph in your current directory, you could type the
 following from the shell to try out your ph script:
+```bash
 $ chmod 755 ph
 $ ./ph new "Mary Jones" 608-555-1212
 Mary Jones 608-555-1212 added to database
 $ ./ph Mary
 Mary Jones 608-555-1212
-The chmod command makes the ph script executable. The ./ph command runs the ph
+```
+The chmod command makes the ph script executable. The `./ph` command runs the `ph`
 command from the current directory with the new option. This adds Mary Jones as the
-name and 608-555-1212 as the phone number to the database ($HOME/.phonelist.txt).
+name and 608-555-1212 as the phone number to the database (`$HOME/.phonelist.txt`).
 The next ph command searches the database for the name Mary and displays the phone
-entry for Mary. If the script works, add it to a directory in your path (such as $HOME/bin).
+entry for Mary. If the script works, add it to a directory in your path (such as `$HOME/bin`).
 Backup script
 Because nothing works forever and mistakes happen, backups are just a fact of life when
 dealing with computer data. This simple script backs up all of the data in the home directories
 of all of the users on your Fedora or RHEL system.
+```bash
 #!/bin/bash
 # (@)/my_backup
 # A very simple backup script
@@ -674,7 +699,7 @@ HOMES=`grep /home /etc/passwd | cut -f6 -d':'`
 tar cvf $TAPE $HOMES
 # Rewind and eject the tape.
 mt $TAPE rewoffl
-
+```
 
 
 
