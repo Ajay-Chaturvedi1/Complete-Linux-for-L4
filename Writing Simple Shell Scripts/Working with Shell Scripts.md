@@ -158,24 +158,29 @@ BALANCE="$CurBalance"
 > meaning that you want the value of the variable, precede it with a dollar sign (as in $CurBalance). The result of
 > the latter is that you get the value of the variable, not the variable name itself.
 
-Special shell positional parameters
+### Special shell positional parameters
+
 There are special variables that the shell assigns for you. One set of commonly used variables
 is called positional parameters or command-line arguments, and it is referenced as $0,
 $1, $2, $3. . .$n. $0 is special, and it is assigned the name used to invoke your script; the
 others are assigned the values of the parameters passed on the command line in the order
 they appeared. For instance, let’s say that you had a shell script named myscript which
 contained the following:
+```bash
 #!/bin/bash
 # Script to echo out command-line arguments
 echo "The first argument is $1, the second is $2."
 echo "The command itself is called $0."
 echo "There are $# parameters on your command line"
 echo "Here are all the arguments: $@"
+```
 Assuming that the script is executable and located in a directory in your $PATH, the
 following shows what would happen if you ran that command with foo and bar as
 arguments:
+```bash
 $ chmod 755 /home/chris/bin/myscript
 $ myscript foo bar
+```
 The first argument is foo, the second is bar.
 The command itself is called /home/chris/bin/myscript.
 There are 2 parameters on your command line
@@ -184,20 +189,23 @@ Here are all the arguments: foo bar
 
 
 
-As you can see, the positional parameter $0 is the full path or relative path to myscript,
-$1 is foo, and $2 is bar.
-Another variable, $#, tells you how many parameters your script was given. In the example,
-$# would be 2. The $@ variable holds all of the arguments entered at the command line.
-Another particularly useful special shell variable is $?, which receives the exit status of the
+As you can see, the positional parameter `$0` is the full path or relative path to myscript,
+`$1` is foo, and `$2` is bar.
+Another variable, `$#`, tells you how many parameters your script was given. In the example,
+`$#` would be 2. The `$@` variable holds all of the arguments entered at the command line.
+Another particularly useful special shell variable is `$?`, which receives the exit status of the
 last command executed. Typically, a value of zero means that the command exited successfully,
 and anything other than zero indicates an error of some kind. For a complete list of
 special shell variables, refer to the bash man page.
 Reading in parameters
+
 Using the read command, you can prompt the user for information and store that information
 to use later in your script. Here’s an example of a script that uses the read command:
+```bash
 #!/bin/bash
 read -p "Type in an adjective, noun and verb (past tense): " adj1 noun1 verb1
 echo "He sighed and $verb1 to the elixir. Then he ate the $adj1 $noun1."
+```
 In this script, after the script prompts for an adjective, noun, and verb, the user is
 expected to enter words that are then assigned to the adj1, noun1, and verb1 variables.
 Those three variables are then included in a silly sentence, which is displayed on the
