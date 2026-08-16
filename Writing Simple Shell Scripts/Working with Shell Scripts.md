@@ -210,13 +210,15 @@ In this script, after the script prompts for an adjective, noun, and verb, the u
 expected to enter words that are then assigned to the adj1, noun1, and verb1 variables.
 Those three variables are then included in a silly sentence, which is displayed on the
 screen. If the script were called sillyscript, here’s an example of how it might run:
+```bash
 $ chmod 755 /home/chris/bin/sillyscript
 $ sillyscript
+```
 Type in an adjective, noun and verb (past tense): hairy football danced
 He sighed and danced to the elixir. Then he ate the hairy football.
 Parameter expansion in bash
-As mentioned earlier, if you want the value of a variable, you precede it with a $ (for example,
-$CITY). This is really just shorthand for the notation ${CITY}; curly braces are used
+As mentioned earlier, if you want the value of a variable, you precede it with a `$` (for example,
+`$CITY`). This is really just shorthand for the notation ${CITY}; curly braces are used
 when the value of the parameter needs to be placed next to other text without a space.
 Bash has special rules that allow you to expand the value of a variable in different ways.
 Going into all of the rules is probably overkill for a quick introduction to shell scripts, but
