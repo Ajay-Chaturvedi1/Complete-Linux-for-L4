@@ -229,6 +229,7 @@ $ bg %5
 ```
 After that, the job runs in the background. Its jobs entry appears as follows:
 [5] Running nroff -man /usr/man4/* >/tmp/man4 &
+
 ---
 # Killing and Renicing Processes
 Just as you can change the behavior of a process using graphical tools such as System Monitor
