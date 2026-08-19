@@ -181,8 +181,8 @@ stopped by pressing `Ctrl+Z` while I was editing. Job 2 shows the find command I
 Jobs 3 and 4 show `nroff` commands currently running in the background. Job 5 had been
 running in the shell (foreground) until I decided too many processes were running and
 pressed `Ctrl+Z` to stop job 5 until a few processes had completed.
-The plus sign (+) next to number 5 shows that it was most recently placed in the
-background. The minus sign (-) next to number 4 shows that it was placed in the
+The plus sign (`+`) next to number 5 shows that it was most recently placed in the
+background. The minus sign (`-`) next to number 4 shows that it was placed in the
 background just before the most recent background job. Because job 1 requires terminal
 input, it cannot run in the background. As a result, it is Stopped until it is brought to the
 foreground again.
@@ -205,133 +205,167 @@ the `vi` job.
 > file. It’s easy to forget that you have a program in the background, and you will lose your data if you log out or the
 > computer reboots.
 
-To refer to a background job (to cancel or bring it to the foreground), use a percent sign (%)
+To refer to a background job (to cancel or bring it to the foreground), use a percent sign (`%`)
 followed by the job number. You can also use the following to refer to a background job:
-% Refers to the most recent command put into the background (indicated by the
+- `%` Refers to the most recent command put into the background (indicated by the
 plus sign when you type the jobs command). This action brings the command to
 the foreground.
 
-%string Refers to a job where the command begins with a particular string of characters.
+- `%string` Refers to a job where the command begins with a particular string of characters.
 The string must be unambiguous. (In other words, typing %vi when there are two
 vi commands in the background results in an error message.)
-%?string Refers to a job where the command line contains a string at any point. The string
-must be unambiguous or the match fails.
-%-- Refers to the job stopped before the one most recently stopped.
 
-If a command is stopped, you can start it running again in the background using the bg
-command. For example, refer back to job 5 from the jobs list in a previous example:
-[5]+ Stopped nroff -man /usr/man4/* >/tmp/man4
+- `%?string` Refers to a job where the command line contains a string at any point. The string
+must be unambiguous or the match fails.
+
+- `%--` Refers to the job stopped before the one most recently stopped.
+
+If a command is stopped, you can start it running again in the background using the `bg`
+command. For example, refer back to job `5` from the jobs list in a previous example:
+- [5]+ Stopped nroff -man /usr/man4/* >/tmp/man4
 Enter the following:
+```bash
 $ bg %5
+```
 After that, the job runs in the background. Its jobs entry appears as follows:
 [5] Running nroff -man /usr/man4/* >/tmp/man4 &
 
 # Killing and Renicing Processes
 Just as you can change the behavior of a process using graphical tools such as System Monitor
 (described earlier in this chapter), you can also use command-line tools to kill a process
-or change its CPU priority. The kill command can send a kill signal to any process to
+or change its `CPU` priority. The `kill` command can send a **kill signal** to any process to
 end it, assuming you have permission to do so. It can also send different signals to a process
-to otherwise change its behavior. The nice and renice commands can be used to set
+to otherwise change its behavior. The `nice` and `renice` commands can be used to set
 or change the processor priority of a process.
-Killing processes with kill and killall
-Although usually used for ending a running process, the kill and killall commands
+
+Killing processes with `kill` and `killall`
+
+Although usually used for ending a running process, the `kill` and `killall` commands
 can actually be used to send any valid signal to a running process. Besides telling a process
-to end, a signal might tell a process to reread configuration files, pause (stop), or continue
+to end, a signal might tell a process to reread configuration files, pause (`stop`), or continue
 after being paused, just to name a few possibilities.
+
 Signals are represented by both numbers and names. Signals that you might send most
-commonly from a command include SIGKILL (9), SIGTERM (15), and SIGHUP (1). The
-default signal is SIGTERM, which tries to terminate a process cleanly. To kill a process
-immediately, you can use SIGKILL. The SIGHUP signal can, depending on the program,
-tell a process to reread its configuration files. SIGSTOP pauses a process, while SIGCONT
+commonly from a command include `SIGKILL (9)`, `SIGTERM (15)`, and `SIGHUP (1)`. The
+default signal is `SIGTERM`, which tries to terminate a process cleanly. To kill a process
+immediately, you can use `SIGKILL`. The `SIGHUP` signal can, depending on the program,
+tell a process to **reread** its configuration files. `SIGSTOP` pauses a process, while `SIGCONT`
 continues a stopped process.
-Different processes respond to different signals. Processes cannot block SIGKILL and SIGSTOP
-signals, however. Table 6.1 shows examples of some signals (enter man 7 signal to
+
+Different processes respond to different signals. Processes cannot block `SIGKILL` and `SIGSTOP`
+signals, however. 
+
+**Table 1** shows examples of some signals (enter `man 7 signal ` to
 read about other available signals).
-Notice that there are multiple possible signal numbers for SIGCONT and SIGSTOP because
-different numbers are used in different computer architectures. For most x86 and Power
-architectures, use the middle value. The first value usually works for Alpha and SPARC,
-while the last one is for MIPS architecture.
+
+Notice that there are multiple possible signal numbers for `SIGCONT` and `SIGSTOP` because
+different numbers are used in different computer architectures. For most `x86` and Power
+architectures, use the middle value. The first value usually works for `Alpha` and `SPARC`,
+while the last one is for `MIPS` architecture.
+
 Using kill to signal processes by PID
-Using commands such as ps and top, you can find processes to which you want to send a
-signal. Then you can use the process ID of that process as an option to the kill command,
+
+Using commands such as `ps` and `top`, you can find processes to which you want to send a
+signal. Then you can use the **process ID** of that process as an option to the `kill` command,
 along with the signal you want to send.
 
-TABLE 6.1 Signals Available in Linux
-Signal Number Description
-SIGHUP 1 Hang-up detected on controlling terminal or death of controlling
-process.
-SIGINT 2 Interrupt from keyboard.
-SIGQUIT 3 Quit from keyboard.
-SIGABRT 6 Abort signal from abort(3).
-SIGKILL 9 Kill signal.
-SIGTERM 15 Termination signal.
-SIGCONT 19,18,25 Continue if stopped.
-SIGSTOP 17,19,23 Stop process
+### TABLE 1 Signals Available in Linux
+|Signal |Number |Description|
+|-------|-------|-----------|
+|SIGHUP |1 |Hang-up detected on controlling terminal or death of controlling process.|
+|SIGINT |2 |Interrupt from keyboard.|
+|SIGQUIT |3 |Quit from keyboard.|
+|SIGABRT |6 |Abort signal from abort(3).|
+|SIGKILL |9 |Kill signal.|
+|SIGTERM |15 |Termination signal.|
+|SIGCONT |19,18,25 |Continue if stopped.|
+|SIGSTOP |17,19,23 |Stop process|
 
 
-For example, you run the top command and see that the bigcommand process is consuming
+For example, you run the `top` command and see that the bigcommand process is consuming
 most of your processing power:
+```
 PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
 10432 chris 20 0 471m 121m 18m S 99.9 3.2 77:01.76 bigcommand
-Here, the bigcommand process is consuming 99.9 percent of the CPU. You decide that you
-want to kill it so that other processes have a shot at the CPU. If you use the process ID of
+```
+
+Here, the bigcommand process is consuming `99.9` percent of the `CPU`. You decide that you
+want to `kill` it so that other processes have a shot at the CPU. If you use the process ID of
 the running bigcommand process, here are some examples of the kill command that you
 can use to kill that process:
+```bash
 $ kill 10432
 $ kill -15 10432
 $ kill -SIGKILL 10432
+```
 The default signal sent by kill is 15 (SIGTERM), so the first two examples have exactly the
 same results. On occasion, a SIGTERM doesn’t kill a process, so you may need a SIGKILL to
-kill it. Instead of SIGKILL, you can use –9 to get the same result.
-Another useful signal is SIGHUP. If, for example, something on your GNOME desktop were
-corrupted, you could send the gnome-shell a SIGHUP signal to reread its configuration
-files and restart the desktop. If the process ID for gnome-shell were 1833, here are two
+kill it. Instead of `SIGKILL`, you can use `–9` to get the same result.
+
+Another useful signal is `SIGHUP`. If, for example, something on your GNOME desktop were
+corrupted, you could send the `gnome-shell` a `SIGHUP` signal to reread its configuration
+files and restart the desktop. If the process ID for `gnome-shell` were `1833`, here are two
 ways you could send it a SIGHUP signal:
+```bash
 # kill -1 1833
 # killall -HUP gnome-shell
-Using killall to signal processes by name
-With the killall command, you can signal processes by name instead of by process ID. The
+```
+
+### Using `killall` to signal processes by name
+
+With the `killall` command, you can signal processes by name instead of by process ID. The
 advantage is that you don’t have to look up the process ID of the process that you want to
 kill. The potential downside is that you can kill more processes than you mean to if you are
-not careful. (For example, typing killall bash may kill a bunch of shells that you don’t
+not careful. (For example, typing `killall` bash may kill a bunch of shells that you don’t
 mean to kill.)
 
-Like the kill command, killall uses SIGTERM (signal 15) if you don’t explicitly enter
+Like the `kill` command, `killall` uses `SIGTERM` (`signal 15`) if you don’t explicitly enter
 a signal number. Also as with kill, you can send any signal you like to the process you
 name with killall. For example, if you see a process called testme running on your
 system and you want to kill it, you can simply enter the following:
+```bash
 $ killall -9 testme
-The killall command can be particularly useful if you want to kill a bunch of commands
+```
+The `killall` command can be particularly useful if you want to kill a bunch of commands
 of the same name.
 
 
 
-Setting processor priority with nice and renice
+## Setting processor priority with nice and renice
 When the Linux kernel tries to decide which running processes get access to the CPUs on
 your system, one of the things it takes into account is the nice value set on the process.
 Every process running on your system has a nice value between –20 and 19. By default, the
 nice value is set to 0. Here are a few facts about nice values:
+
 ■■ The lower the nice value, the more access to the CPUs the process has. In other
 words, the nicer a process is, the less CPU attention it gets. So, a –20 nice value
 gets more attention than a process with a 19 nice value.
+
 ■■ A regular user can set nice values only from 0 to 19. No negative values are allowed.
 So a regular user can’t ask for a value that gives a process more attention than most
 processes get by default.
+
 ■■ A regular user can set the nice value higher, not lower. So, for example, if a user
 sets the nice value on a process to 10 and then later wants to set it back to 5, that
 action will fail. Likewise, any attempt to set a negative value will fail.
+
 ■■ A regular user can set the nice value only on the user’s own processes.
+
 ■■ The root user can set the nice value on any process to any valid value, up or down.
 You can use the nice command to run a command with a particular nice value. When a
 process is running, you can change the nice value using the renice command, along with
 the process ID of the process, as in the example that follows:
+```bash
 # nice -n +5 updatedb &
-The updatedb command is used to generate the locate database manually by gathering
+```
+The `updatedb` command is used to generate the locate database manually by gathering
 names of files throughout the filesystem. In this case, I just wanted updatedb to run in
 the background (&) and not interrupt work being done by other processes on the system. I
 ran the top command to make sure that the nice value was set properly:
+```
 PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
 20284 root 25 5 98.7m 932 644 D 2.7 0.0 0:00.96 updatedb
+```
 Notice that under the NI column, the nice value is set to 5. Because the command was run
 as the root user, the root user can lower the nice value later by using the renice command.
 (Remember that a regular user can’t reduce the nice value or ever set it to a negative number.)
