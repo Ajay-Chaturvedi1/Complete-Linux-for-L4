@@ -129,49 +129,58 @@ can display and sort.
 
 
 # Managing Background and Foreground Processes
-If you are using Linux over a network or from a dumb terminal (a monitor that allows only
+If you are using Linux over a network or from a `dumb` terminal (a monitor that allows only
 text input with no GUI support), your shell may be all that you have. You may be used to a
 graphical environment in which you have lots of programs active at the same time so that
 you can switch among them as needed. This shell thing can seem pretty limited.
+
 Although the bash shell doesn’t include a GUI for running many programs at once, it does
 let you move active programs between the background and foreground. In this way, you
 can have lots of stuff running and selectively choose the one you want to deal with at
 the moment.
-You can place an active program in the background in several ways. One is to add an ampersand
-(&) to the end of a command line when you first run the command. You can also use
+
+You can place an active program in the background in several ways. One is to add an **ampersand
+(`&`)** to the end of a command line when you first run the command. You can also use
 the at command to run commands in such a way that they are not connected to the shell.
-To stop a running command and put it in the background, press Ctrl+Z. After the command
-is stopped, you can either bring it back into the foreground to run (the fg command) or
-start it running in the background (the bg command). Keep in mind that any command
+To stop a running command and put it in the background, press `Ctrl+Z`. After the command
+is stopped, you can either bring it back into the foreground to run (the `fg` command) or
+start it running in the background (the `bg` command). Keep in mind that any command
 running in the background might spew output during commands that you run subsequently
 from that shell. For example, if output appears from a command running in the background
-during a vi session, simply press Ctrl+L to redraw the screen to get rid of the output.
-> Tip
-> To avoid having the output appear, you should have any process running in the background send its output to a file or to null (add 2> /dev/null to the end of the command line).
-Starting background processes
+during a `vi` session, simply press `Ctrl+L` to redraw the screen to get rid of the output.
+
+> **Tip:**
+> To avoid having the output appear, you should have any process running in the background send its output to a file or to null (add `2> /dev/null` to the end of the command line).
+> Starting background processes
 
 If you have programs that you want to run while you continue to work in the shell, you can
 place the programs in the background. To place a program in the background at the time
-you run the program, type an ampersand (&) at the end of the command line, like this:
+you run the program, type an ampersand (`&`) at the end of the command line, like this:
+```bash
 $ find /usr > /tmp/allusrfiles &
 [3] 15971
-This example command finds all files on your Linux system (starting from /usr), prints
-those filenames, and puts those names in the file /tmp/allusrfiles. The ampersand (&)
+```
+
+This example command finds all files on your Linux system (starting from `/usr`), prints
+those filenames, and puts those names in the file /tmp/allusrfiles. The ampersand (`&`)
 runs that command line in the background. Notice that the job number, [3], and process ID
 number, 15971, are displayed when the command is launched. To check which commands
 you have running in the background, use the jobs command, as follows:
+```bash
 $ jobs
 [1] Stopped (tty output) vi /tmp/myfile
 [2] Running find /usr -print > /tmp/allusrfiles &
 [3] Running nroff -man /usr/man2/* >/tmp/man2 &
 [4]- Running nroff -man /usr/man3/* >/tmp/man3 &
 [5]+ Stopped nroff -man /usr/man4/* >/tmp/man4
-The first job shows a text-editing command (vi) that I placed in the background and
-stopped by pressing Ctrl+Z while I was editing. Job 2 shows the find command I just ran.
+```
 
-Jobs 3 and 4 show nroff commands currently running in the background. Job 5 had been
+The first job shows a text-editing command (`vi`) that I placed in the background and
+stopped by pressing `Ctrl+Z` while I was editing. Job 2 shows the find command I just ran.
+
+Jobs 3 and 4 show `nroff` commands currently running in the background. Job 5 had been
 running in the shell (foreground) until I decided too many processes were running and
-pressed Ctrl+Z to stop job 5 until a few processes had completed.
+pressed `Ctrl+Z` to stop job 5 until a few processes had completed.
 The plus sign (+) next to number 5 shows that it was most recently placed in the
 background. The minus sign (-) next to number 4 shows that it was placed in the
 background just before the most recent background job. Because job 1 requires terminal
@@ -179,16 +188,19 @@ input, it cannot run in the background. As a result, it is Stopped until it is b
 foreground again.
 
 > Tip
-> To see the process ID for the background job, add a -l (the lowercase letter L) option to the jobs command. If you type ps, you can use the process ID to figure out which command is for a particular background job.
+> To see the process ID for the background job, add a `-l` (the lowercase letter L) option to the jobs command. If you type ps, you can use the process ID to figure out which command is for a particular background job.
 
-Using foreground and background commands
+## Using foreground and background commands
 Continuing with the example, you can bring any of the commands on the jobs list to the
 foreground. For example, to edit myfile again, enter the following:
+```bash
 $ fg %1
-As a result, the vi command opens again. All text is as it was when you stopped
-the vi job.
+```
 
-> Caution
+As a result, the vi command opens again. All text is as it was when you stopped
+the `vi` job.
+
+> **Caution:**
 > Before you put a text processor, word processor, or similar program in the background, make sure that you save your
 > file. It’s easy to forget that you have a program in the background, and you will lose your data if you log out or the
 > computer reboots.
@@ -198,6 +210,7 @@ followed by the job number. You can also use the following to refer to a backgro
 % Refers to the most recent command put into the background (indicated by the
 plus sign when you type the jobs command). This action brings the command to
 the foreground.
+
 %string Refers to a job where the command begins with a particular string of characters.
 The string must be unambiguous. (In other words, typing %vi when there are two
 vi commands in the background results in an error message.)
