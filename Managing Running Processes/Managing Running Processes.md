@@ -1,59 +1,60 @@
-### Understanding Process
-A process is a running instance of a command. For example, there may be one vi command on the
-system. But if vi is currently being run by 15 different users, that command is represented by 15
+## Understanding Process
+A process is a running instance of a command. For example, there may be one `vi` command on the
+system. But if `vi` is currently being run by `15` different users, that command is represented by `15`
 different running processes.
 A process is identified on the system by what is referred to as a process ID (PID). That PID is unique for
 the current system. In other words, no other process can use that number as its process ID while that
 first process is still running. However, after a process has ended, another process can reuse that number.
 Along with a process ID number, other attributes are associated with a process. Each process, when
 it is run, is associated with a particular user account and group account. That account information
-helps determine what system resources the process can access. For example, a process run as the root
+helps determine what system resources the process can access. **For example**, a process run as the `root`
 user has much more access to system files and resources than a process running as a regular user.
-The ability to manage processes on your system is critical for a Linux system administrator. Sometimes,
-runaway processes may be killing your system’s performance. Finding and dealing with
+The ability to manage processes on your system is critical for a Linux system administrator. **Sometimes,
+runaway processes may be killing your system’s performance.** Finding and dealing with
 processes, based on attributes such as memory and CPU usage, are covered in this chapter.
 
-> Note
+> **Note:**
 > Commands that display information about running processes get most of that information from raw data stored in
-> the /proc file system. Each process stores its information in a subdirectory of /proc, named after the process
-> ID of that process. You can view some of that raw data by displaying the contents of files in one of those directories
-> (using cat or less commands).
+> the `/proc` file system. Each process stores its information in a subdirectory of `/proc`, named after the process
+> `ID` of that process. You can view some of that raw data by displaying the contents of files in one of those directories
+> (using `cat` or `less` commands).
 
 ## Listing Processes
-From the command line, the ps command is the oldest and most common command for listing
-processes currently running on your system. The Linux version of ps contains a variety
-of options from old UNIX and BSD systems, some of which are conflicting and implemented
-in nonstandard ways. See the ps man page for descriptions of those different options.
-The top command provides a more screen-oriented approach to listing processes, and it can
-also be used to change the status of processes. If you are using the GNOME desktop, you can
-use the System Monitor tool (gnome-system-monitor) to provide a graphical means of
+From the command line, the `ps` command is the oldest and most common command for listing
+processes currently running on your system. The Linux version of `ps` contains a variety
+of options from **old UNIX and BSD** systems, some of which are conflicting and implemented
+in nonstandard ways. See the `ps man page` for descriptions of those different options.
+The `top` command provides a more screen-oriented approach to listing processes, and it can
+also be used to change the status of processes. If you are using the `GNOME` desktop, you can
+use the System Monitor tool `(gnome-system-monitor)` to provide a graphical means of
 working with processes. These commands are described in the following sections.
 
 ### Listing processes with ps
-The most common utility for checking running processes is the ps command. Use it to see
-which programs are running, the resources they are using, and who is running them. The
-following is an example of the ps command:
+The most common utility for checking running processes is the `ps` command. Use it to see
+which programs are running, the **resources** they are using, and who is running them. The
+following is an example of the `ps` command:
 ```bash
 $ ps u
 USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
 jake 2147 0.0 0.7 1836 1020 tty1 S+ 14:50 0:00 -bash
 jake 2310 0.0 0.7 2592 912 tty1 R+ 18:22 0:00 ps u
 ```
-In this example, the u option (equivalent to -u) asks that usernames be shown, as well
+In this example, the `u` option (equivalent to `-u`) asks that usernames be shown, as well
 as other information such as the time the process started and memory and CPU usage for
 processes associated with the current user. The processes shown are associated with the
-current terminal (tty1). The concept of a terminal comes from the old days when people
+current terminal (`tty1`). The concept of a terminal comes from the old days when people
 worked exclusively from character terminals, so a terminal typically represented a single
-person at a single screen. Nowadays, you can have many “terminals” on one screen by
+person at a single screen. Nowadays, you can have many “`terminals`” on one screen by
 opening multiple virtual terminals or Terminal windows on the desktop.
+
 In this shell session, not much is happening. The first process shows that the user named
 jake opened a bash shell after logging in. The next process shows that jake has run the
-ps u command. The terminal device tty1 is being used for the login session. The STAT
-column represents the state of the process, with R indicating a currently running process
-and S representing a sleeping process.
+`ps u` command. The terminal device `tty1` is being used for the login session. The `STAT`
+column represents the state of the process, with `R` indicating a currently running process
+and `S` representing a sleeping process.
 
-> Note
-> Several other values can appear under the STAT column. For example, a plus sign (+) indicates that the process is
+> **Note:**
+> Several other values can appear under the STAT column. For example, a plus **sign (+)** indicates that the process is
 > associated with the foreground operations.
 
 The USER column shows the name of the user who started the process. Each process is
