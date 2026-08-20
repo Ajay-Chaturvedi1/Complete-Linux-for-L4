@@ -6,9 +6,11 @@ system when they are just using it to write a document or browse the Internet.
 If you are the system administrator of a Linux system, you generally log in as a regular
 user account and then ask for administrative privileges when you need them. This is often
 done with one of the following:
+
 su command: Often, su is used to open a shell as root user. After the shell is open,
 the administrator can run multiple commands and then exit to return to a shell as a
 regular user.
+
 sudo command: With sudo, a regular user is given root privileges, but only when
 that user runs the sudo command to run another command. After running that one
 command with sudo, the user is immediately returned to a shell and acts as the
@@ -16,6 +18,7 @@ regular user again. Ubuntu and Fedora by default assign sudo privilege to the fi
 user account when those systems are installed. This is not done by default in RHEL,
 although during RHEL installation, you can choose for your first user to have sudo
 privilege if you’d like.
+
 Cockpit browser-based administration: RHEL, Fedora, and other Linux distributions
 have committed to Cockpit as their primary browser-based system administration
 facility. With Cockpit enabled, you can monitor and change your system’s general
