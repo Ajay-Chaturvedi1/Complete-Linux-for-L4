@@ -1,13 +1,3 @@
-IN THIS CHAPTER
-Choosing an installation method
-Installing a single- or multi-boot system
-Performing a Live media installation of Fedora
-Installing Red Hat Enterprise Linux
-Understanding cloud-based installations
-Partitioning the disk for installation
-Understanding the GRUB boot loader
-
-
 Installing Linux has become a fairly easy thing to do—if you are starting with a computer that is
 up to spec (hard disk, RAM, CPU, and so on) and you don’t mind totally erasing your hard drive.
 With cloud computing and virtualization, installation can be even simpler. It allows you to
@@ -20,7 +10,7 @@ to more complex installation topics.
 To ease you into the subject of installing Linux, I cover three different ways of installing Linux and
 step you through each process:
 
-**Installing from Live media**     A Linux Live media ISO is a single, read-only image that contains
+**Installing from Live media**                                 A Linux Live media ISO is a single, read-only image that contains
 everything you need to start a Linux operating system. That image can be burned to a DVD
 or USB drive and booted from that medium. With the Live media, you can totally ignore your
 computer’s hard disk; in fact, you can run Live media on a system with no hard disk. After
@@ -29,7 +19,7 @@ that permanently installs the contents of the Live medium to your hard disk. The
 first installation procedure in this chapter shows you how to install Linux permanently from
 a Fedora Live media ISO.
 
-**Installing from an installation DVD**      An installation DVD, available with Fedora,
+**Installing from an installation DVD**                       An installation DVD, available with Fedora,
 RHEL, Ubuntu, and other Linux distributions, offers more flexible ways of
 installing Linux. In particular, instead of just copying the whole Live media contents
 to your computer, with an installation DVD you can choose exactly which
@@ -37,7 +27,7 @@ software package you want. The second installation procedure I show in this chap
 steps you through an installation process from a Red Hat Enterprise Linux 8
 installation DVD.
 
-**Installing in the enterprise**       Sitting in front of a computer and clicking through
+**Installing in the enterprise**                            Sitting in front of a computer and clicking through
 installation questions isn’t inconvenient if you are installing a single system.
 But what if you need to install dozens or hundreds of Linux systems? What if
 you want to install those systems in particular ways that need to be repeated
@@ -86,6 +76,7 @@ could try Tiny Core Linux (http://tinycorelinux.net/).
 RAM Fedora recommends at least 1GB of RAM, but at least 2GB or 3GB would be much
 better. On my RHEL desktop, I’m running a web browser, word processor, and mail
 reader, and I’m consuming over 2GB of RAM.
+
 DVD or USB drive You need to be able to boot up the installation process from a DVD
 or USB drive. In recent releases, the Fedora live media ISO has become too big to fit
 on a CD, so you need to burn it to a DVD or USB drive. If you can’t boot from a DVD
@@ -94,8 +85,9 @@ PXE install. After the installation process is started, more software can someti
 retrieved from different locations (over the network or from hard disk, for example).
 
 
-Note
-PXE (pronounced pixie) stands for Preboot eXecution Environment (PXE). You can boot a client computer from a
+> Note
+>
+> PXE (pronounced pixie) stands for Preboot eXecution Environment (PXE). You can boot a client computer from a
 Network Interface Card (NIC) that is PXE-enabled. If a PXE boot server is available on the network, it can provide
 everything a client computer needs to boot. What it boots can be an installer. So, with a PXE boot, it is possible to do
 a complete Linux installation without a CD, DVD, or any other physical medium.
@@ -104,6 +96,7 @@ a complete Linux installation without a CD, DVD, or any other physical medium.
 Network card You need wired or wireless networking hardware to be able to add more
 software or get software updates. Fedora offers free software repositories if you can connect
 to the Internet. For RHEL, updates are available as part of the subscription price.
+
 Disk space Fedora recommends at least 20GB of disk space for an average desktop
 installation, although installations can range (depending on which packages you
 choose to install) from 600MB (for a minimal server with no GUI install) to 7GB (to
@@ -111,6 +104,7 @@ install all packages from the installation DVD). Consider the amount of data tha
 you need to store. Although documents can consume very little space, videos can
 consume massive amounts of space. (By comparison, you can install Tiny Core Linux
 to disk with only about 16MB of disk space, which includes a GUI.)
+
 Special hardware features Some Linux features require special hardware features. For
 example, to use Fedora or RHEL as a virtualization host using KVM, the computer must
 have a processor that supports virtualization. These include AMD-V or Intel-VT chips.
@@ -123,21 +117,26 @@ as it is detected on your system.
 
 With your hardware in place, you can choose to install Linux from a Live CD or from installation
 media, as described in the following sections.
-Installing Fedora from Live Media
+
+# Installing Fedora from Live Media
 In Chapter 2, you learned how to get and boot up Linux Live media. This chapter steps you
 through an installation process of a Fedora Live DVD so that it is permanently installed on
 your hard disk.
+
 Simplicity is the main advantage of installing from Live media. Essentially, you are just
 copying the kernel, applications, and settings from the ISO image to the hard disk. There
 are fewer decisions that you have to make to do this kind of installation, but you also don’t
 get to choose exactly which software packages to install. After the installation, you can
 add and remove packages as you please.
+
 The first decisions that you must make about your Live media installation include where
 you want to install the system and whether you want to keep existing operating systems
 around when your installation is done:
+
 Single-boot computer The easiest way to install Linux is to not have to worry about
 other operating systems or data on the computer and have Linux replace everything.
 When you are done, the computer boots up directly to Fedora.
+
 Multi-boot computer If you already have Windows installed on a computer and you
 don’t want to erase it, you can install Fedora along with Windows on that system.
 Then, at boot time, you can choose which operating system to start up. To be able
@@ -147,6 +146,7 @@ to shrink the Windows system to gain enough free space to install Fedora. Becaus
 multi-boot computers are tedious to set up and risk damaging your installed system,
 I recommend installing Linux on a separate computer, even an old used one, or on a
 virtual machine, as opposed to multi-booting.
+
 Bare metal or virtual system The resulting Fedora installation can be installed to
 boot up directly from the computer hardware or from within an existing operating
 system on the computer. If you have a computer that is running as a virtual host,
@@ -156,14 +156,15 @@ and the Mac OS), Hyper-V (for Microsoft systems), and VMware (for Linux, Windows
 and Mac OS). You can use the Fedora Live ISO image from disk or burned to a DVD to
 start an installation from your chosen hypervisor host. (Chapter 27, “Using Linux for
 Cloud Computing,” describes how to set up a KVM virtualization host.)
+
 The following procedure steps you through the process of installing the Fedora Live ISO
 described in Chapter 2 to your local computer. Because the Fedora 30 installation is very
 similar to the Red Hat Enterprise Linux 8 installation described later in this chapter, you
 can refer to that procedure if you want to go beyond the simple selections shown here (particularly
 in the area of storage configuration).
 
-Caution
-Before beginning the procedure, be sure to make backup copies of any data on the computer that you still want to
+> Caution
+> Before beginning the procedure, be sure to make backup copies of any data on the computer that you still want to
 keep. Although, you can choose not to erase selected disk partitions (as long as there is enough space available on
 other partitions), there is always a risk that data can be lost when you are manipulating disk partitions. Also, unplug
 any USB drives that you have plugged into your computer because they could be overwritten.
@@ -171,11 +172,13 @@ any USB drives that you have plugged into your computer because they could be ov
 1. Get Fedora. Choose the Fedora Live media image that you want to use, download
 it to your local system, and burn it to an appropriate medium. See Appendix A for
 information on how to get the Fedora Live media and burn it to a DVD or USB drive.
+
 2. Boot the Live image. Insert the DVD or USB drive. When the BIOS screen appears,
 look for a message that tells you to press a particular function key (such as F12)
 to interrupt the boot process and select the boot medium. Select the DVD or USB
 drive, depending on which you have, and Fedora should come up and display the
 boot screen. When you see the boot screen, select Start Fedora-Workstation-Live.
+
 3. Start the installation. When the Welcome to Fedora screen appears, position your
 mouse over the Install to Hard Drive area and select it. Figure 9.1 shows an example
 of the Install to Hard Drive selection on the Fedora Live media.
@@ -195,35 +198,41 @@ To set the date and time, if you have an Internet connection, you can select the
 Network Time button to turn it on, or you can select OFF and set the date and time
 manually from boxes on the bottom of the screen. Select Done in the upper-right
 corner when you are finished.
+
 6. Select the installation destination. Available storage devices (such as your hard
 drive) are displayed, with your hard drive selected as the installation destination.
 If you want the installer to install Fedora automatically, reclaiming existing disk
 space, make sure that your disk is selected (not a USB drive or other device connected
 to your computer), then make the following selections:
-a. Automatic . . . If there is enough available disk space on the selected disk drive,
+- a. Automatic . . . If there is enough available disk space on the selected disk drive,
 you can continue with the installation by selecting Continue. Otherwise, you
 need to reclaim disk space as follows:
 I would like to make additional space available. . . If you want to erase the
 hard drive completely, select this check box and click Continue. You can erase
 some or all of the partitions that currently contain data.
-b. Reclaim Disk Space. From this screen, you can select Delete All. Then select
+- b. Reclaim Disk Space. From this screen, you can select Delete All. Then select
 Reclaim Space. Partitioning is set up automatically and you are returned to the
 Installation Summary screen.
 
-7. Select the keyboard. You can just use the default English (U.S.) keyboard or select
+8. Select the keyboard. You can just use the default English (U.S.) keyboard or select
 Keyboard to choose a different keyboard layout.
-8. Begin installation. Select Begin Installation to begin installing to hard disk.
-9. Finish the configuration. When the first part of the installation is complete, click Quit.
-10. Reboot. Select the little on/off button from the menu on the top-right corner of the
+
+9. Begin installation. Select Begin Installation to begin installing to hard disk.
+
+10. Finish the configuration. When the first part of the installation is complete, click Quit.
+
+11. Reboot. Select the little on/off button from the menu on the top-right corner of the
 screen. When prompted, click the Restart button. Eject or remove the Live media
 when the system boot screen appears. The computer should boot to your newly
 installed Fedora system. (You may actually need to power off the computer for it to
 boot back up.)
-11. Begin using Fedora. A first boot screen appears at this point, allowing you to create
+
+12. Begin using Fedora. A first boot screen appears at this point, allowing you to create
 a user account and password, among other things. You are automatically logged in
 as that user account when configuration is done. That account has sudo privileges,
 so you can immediately begin doing administrative tasks as needed.
-12. Get software updates. To keep your system secure and up to date, one of the first
+
+13. Get software updates. To keep your system secure and up to date, one of the first
 tasks that you should do after installing Fedora is to get the latest versions of the
 software you just installed. If your computer has an Internet connection (plugging
 into a wired Ethernet network or selecting an accessible wireless network from the
@@ -231,39 +240,48 @@ desktop takes care of that), you can simply open a Terminal as your new user and
 type sudo dnf update to download and update all of your packages from the
 Internet. If a new kernel is installed, you can reboot your computer to have that
 new kernel take effect.
+
 At this point, you can begin using the desktop, as described in Chapter 2. You can also use
 the system to perform exercises from any of the chapters in this book.
-Installing Red Hat Enterprise Linux from
-Installation Media
+
+## Installing Red Hat Enterprise Linux from Installation Media
 In addition to offering a live DVD, most Linux distributions offer a single image or set of
 images that can be used to install the distribution. For this type of installation media,
 instead of copying the entire contents of the medium to disk, software is split up into
 packages that you can select to meet your exact needs. A full installation DVD, for example,
 can allow you to install anything from a minimal system to a fully featured desktop to a
 full-blown server that offers multiple services.
+
 In this chapter, I use a Red Hat Enterprise Linux 8 installation DVD as the installation
 medium. Review the hardware information and descriptions of dual booting in the previous
 section before beginning your RHEL installation.
+
 Follow this procedure to install Red Hat Enterprise Linux from an installation DVD.
+
 1. Get the installation media. The process of downloading RHEL install ISO images is
 described on the Red Hat Enterprise Linux product page. If you are not yet a Red
 Hat customer, you can apply for an evaluation copy here: https://www.redhat.com/
 en/technologies/linux-platforms/enterprise-linux.
+
 This requires that you create a Red Hat account. If that is not possible, you can
 download an installation DVD from a mirror site of the CentOS project to get a similar
 experience: https://wiki.centos.org/Download.
+
 For this example, I used the 6.7G RHEL 8 DVD ISO rhel-8.0-x86_64-dvd.iso.
 After you have the DVD ISO, you can burn it to a physical USB drive or dual-layer
 DVD, as described in Appendix A.
+
 2. Boot the installation media. Insert the USB drive or DVD into your computer
 and reboot. (If you need to, interrupt the boot prompt to select to boot from the
 selected USB or DVD.) The Welcome screen appears.
+
 3. Select Install or Test Media. Select the Install or the “Test this media & install”
 entry to do a new installation of RHEL. The media test verifies that the DVD has
 not been corrupted during the copy or burning process. If you need to modify the
 installation process, you can add boot options by pressing the Tab key with a boot
 entry highlighted and typing in the options you want. See the section “Using
 installation boot options” later in this chapter.
+
 4. Select a language. Select your language and choose Continue. The Installation Summary
 screen appears. From that screen, you can select to change any of the available
 Localization, Software, and System features, as shown in Figure 9.3.
@@ -272,34 +290,41 @@ Localization, Software, and System features, as shown in Figure 9.3.
 
 5. Keyboard. Choose from different types of keyboards available with the languages
 you selected earlier. Type some text to see how the keys are laid out.
+
 6. Language Support. You have a chance to add support for additional languages
 (beyond what you set by default earlier). Select Done when you are finished.
+
 7. Time & Date. Choose a time zone for your machine from either the map or the list
 shown (as described in the section “Installing Fedora from Live Media”). Either
 set the time manually with up/down arrows or select Network Time to have your
 system try to connect to networked time servers automatically to sync system
 time. Select Done when you are finished.
+
 8. Installation Source. The installation DVD is used, by default, to provide the RPM
 packages that are used during installation. You have the option of selecting “On
 the network” and choosing a Web URL (http, https, or ftp) identifying where
 the Red Hat Enterprise Linux software repository is located. After choosing the DVD
 or a network location, you can add additional yum repositories to have those repositories
 used during installation as well. Select Done when you are finished.
+
 9. Software Selection. The default “Server with GUI” selection provides a GNOME 3
 desktop system on top of a basic server install. Other choices include "Server"
 (which has no GUI), "Minimal Install" (which starts with a basic package set), and
 "Workstation" (geared for end users). You can select to add other services or other
 base environments to include. Select Done when you are ready to continue.
+
 10. Installation Destination. The new RHEL system is installed, by default, on the local
 hard drive using automatic partitioning. You also have the option of attaching network
 storage or special storage, such as Firmware RAID. (See the section “Partitioning
 hard drives” later in this chapter for details on configuring storage.) Click Done
 when you are finished. You may be asked to verify that it’s okay to delete existing
 storage.
+
 11. Kdump. Enabling kdump sets aside RAM to be used to capture the resulting kernel
 dump in the event that your kernel crashes. Without kdump, there would be no
 way to diagnose a crashed kernel. By default, enabling kdump sets aside 160MB
 plus 2 bits for every 4KB of RAM for saving kernel crashes.
+
 12. Network & Host Name. Any network interface cards that are discovered can be configured
 at this point. If a DHCP service is available on the network, network address
 information is assigned to the interface after you select ON. Select Configure if you
@@ -307,9 +332,11 @@ prefer to configure the network interface manually. Fill in the Hostname box if 
 want to set the system’s hostname. Setting up your network and hostname during
 installation can make it easier to begin using your system after installation. Click
 Done to continue.
+
 13. Security Policy. By choosing a security policy (none is chosen by default), you can
 ensure that your system complies with a selected security standard. All fields are
 optional and can be changed later.
+
 14. System Purpose. This optional selection lets you choose the system’s role, servicelevel
 agreement, and usage.
 
@@ -318,10 +345,12 @@ agreement, and usage.
 process. A progress bar marks the progress of the installation. As the system is
 installing, you can set the root password and create a new user account for your
 new system.
+
 16. Root Password. Set the password for the root user and verify it (type it again).
 Click Done to accept it. If the password is too short or too weak, you stay on the
 page (where you can set a new password). If you decide to keep the weak password
 instead, click Done again to accept the weak password.
+
 17. User Creation. It is good practice to log into a Linux system with a non-root user
 account and request root privilege as needed. You can set up a user account, including
 a username, full name, and password. You can select “Make this user administrator”
@@ -329,24 +358,28 @@ to give that user sudo privileges (allowing the account to act as the root
 user as needed). Select Done when you are finished. If the password you enter is
 too short or otherwise weak, you must change it or click Done again if you still
 want to use the weak password.
+
 18. Complete the installation. When installation is finished, click Reboot. Pop out the
 DVD when the system restarts and Red Hat Enterprise Linux starts up from the
 hard disk.
+
 19. Run firstboot. If you installed a desktop interface, the firstboot screen appears the
 first time you boot the system. Here’s what you do:
-a. License Information. Read and click the check box to accept the license information,
+- a. License Information. Read and click the check box to accept the license information,
 then click Done.
-b. Subscription Manager. When prompted, you can leave the default subscription
+- b. Subscription Manager. When prompted, you can leave the default subscription
 management system in place (subscription.rhn.redhat.com) or enter the
 location of a Red Hat Satellite server to register your system. Click Next. Enter
 your Red Hat account and password, then click Register to register and entitle
 your system to updates. If the subscription found is acceptable, click Attach to
 enable the subscription.
+
 20. Select Finish Configuration when you are done.
 You should now be able to log in to your Red Hat Enterprise Linux system. One of the first
 things that you should do is to get software updates for the new system. Do this by logging
 into the system and running sudo dnf upgrade from a Terminal window.
 Understanding Cloud-Based Installations
+
 When you install a Linux system on a physical computer, the installer can see the computer’s
 hard drive, network interfaces, CPUs, and other hardware components. When you
 install Linux in a cloud environment, those physical components are abstracted into a pool
@@ -358,24 +391,29 @@ an installed Linux system. Typically, that image includes all of the files neede
 running Linux system. Metadata is added to that image from a configuration file or by
 filling out a form from a cloud controller that creates and launches the operating system as
 a virtual machine.
+
 The kind of information added to the image might include a particular hostname, root
 password, and new user account. You might also want to choose to have a specific amount
 of disk space, a particular network configuration, and a certain number of CPU processors
 and RAM.
+
 Methods for installing Linux in a local cloud-like KVM environment are discussed in Chapter
 28, “Deploying Linux to the Cloud.” That chapter covers how to run a Linux system
 as a virtual machine image on a KVM environment, Amazon EC2 cloud, or OpenStack
 environment.
-Installing Linux in the Enterprise
+
+## Installing Linux in the Enterprise
 If you were managing dozens, hundreds, even thousands of Linux systems in a large enterprise,
 it would be terribly inefficient to have to go to each computer to type and click through
 each installation. Fortunately, with Red Hat Enterprise Linux and other distributions, you
 can automate installation in such a way that all you need to do is to turn on a computer and
 boot from the computer’s network interface card to get your desired Linux installation.
+
 Although we have focused on installing Linux from a DVD or USB media, there are many
 other ways to launch a Linux installation and many ways to complete an installation. The
 following descriptions step through the installation process and describe ways of changing
 that process along the way:
+
 Launch the installation medium. You can launch an installation from any medium
 that you can boot from a computer: CD, DVD, USB drive, hard disk, or network interface
 card with PXE support. The computer goes through its boot order and looks at the
@@ -386,6 +424,7 @@ anaconda). So, any of the media types just described simply needs to point to th
 location of the kernel and initial RAM disk to start the installation. If the software
 packages are not on the same medium, the installation process prompts you for
 where to get those packages.
+
 Add kickstart or other boot options. Boot options (described later in this chapter)
 can be passed to the anaconda kernel to configure how it starts up. One option
 supported by Fedora and RHEL allows you to pass the location of a kickstart file to
@@ -400,36 +439,46 @@ only a kernel and initial RAM disk. From the kickstart file or from an option
 you enter manually to the installer, you can identify the location of the repository
 holding the RPM software packages. That location can be a local CD (cdrom), website
 (http), FTP site (ftp), NFS share (nfs), NFS ISO (nfsiso), or local disk (hd).
+
 Modify installation with kickstart scripts. Scripts included in a kickstart can
 run commands you choose before or after the installation to further configure the
 Linux system. Those commands can add users, change permissions, create files and
 directories, grab files over the network, or otherwise configure the installed system
 exactly as you specify.
+
 Although installing Linux in enterprise environments is beyond the scope of this book, I
 want you to understand the technologies that are available when you want to automate the
 Linux installation process. Here are some of those technologies available to use with Red
 Hat Enterprise Linux, along with links to where you can find more information about them:
+
 Install server If you set up an installation server, you don’t have to carry the software
 packages around to each machine where you install RHEL. Essentially, you
 copy all of the software packages from the RHEL installation medium to a web
 server (http), FTP server (ftp), or NFS server (nfs) and then point to the location
 of that server when you boot the installer. The RHEL 8 Installation Guide describes
 how to set up a local or network installation source:
+
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/
+
 html-single/performing_a_standard_rhel_installation/index#prepareinstallation-
-source_preparing-for-your-installation
-PXE server If you have a computer with a network interface card that supports PXE
+
+### source_preparing-for-your-installation
+- **PXE server** If you have a computer with a network interface card that supports PXE
 booting (as most do), you can set your computer’s BIOS to boot from that NIC. If you
 have set up a PXE server on that network, that server can present a menu to the
 computer containing entries to launch an installation process. The RHEL Installation
 Guide provides information on how to set up PXE servers for installation:
+
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/
+
 html-single/performing_a_standard_rhel_installation/index#booting-theinstallation-
 using-pxe_booting-the-installer
-Kickstart files To automate an installation completely, you create what is called a
+
+- **Kickstart files** To automate an installation completely, you create what is called a
 kickstart file. By passing a kickstart file as a boot option to a Linux installer, you
 can provide answers to all of the installation questions that you would normally
 have to click through.
+
 When you install RHEL, a kickstart file containing answers to all installation questions
 for the installation you just did is contained in the /root/anaconda-ks.cfg
 file. You can present that file to your next installation to repeat the installation configuration
@@ -443,22 +492,27 @@ index/#performing_an_automated_installation_using_kickstart
 en-us/red_hat_enterprise_linux/8/html-single/
 performing_an_advanced_rhel_installation/index/#creating-kickstart-files_
 installing-rhel-as-an-experienced-user
-Exploring Common Installation Topics
+
+## Exploring Common Installation Topics
 Some of the installation topics touched upon earlier in this chapter require further explanation
 for you to be able to implement them fully. Read through the following sections to
 get a greater understanding of specific installation topics.
-Upgrading or installing from scratch
+
+## Upgrading or installing from scratch
 If you have an earlier version of Linux already installed on your computer, Fedora, Ubuntu,
 and other Linux distributions offer an upgrade option. Red Hat Enterprise Linux offers a
 limited upgrade path from RHEL 7 to RHEL 8.
+
 Upgrading lets you move a Linux system from one major release to the next. Between minor
 releases, you can simply update packages as needed (for example, by typing yum update).
-Here are a few general rules before performing an upgrade:
+
+### Here are a few general rules before performing an upgrade:
 Remove extra packages. If you have software packages that you don’t need, remove
 them before you do an upgrade. Upgrade processes typically upgrade only those
 packages that are on your system. Upgrades generally do more checking and comparing
 than clean installs do, so any package that you can remove saves time during
 the upgrade process.
+
 Check configuration files. A Linux upgrade procedure often leaves copies of
 old configuration files. You should check that the new configuration files still
 work for you.
