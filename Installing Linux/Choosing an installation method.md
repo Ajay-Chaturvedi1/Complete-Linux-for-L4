@@ -74,7 +74,8 @@ applications, a 32-bit processor is fine (x86). However, if you want to set up t
 system to do virtualization, you need a 64-bit processor (x86_64).
 
 
-> Note
+> Note:
+> 
 If you have a less powerful computer than the minimum described here, consider using a lightweight Linux
 distribution. Lightweight Ubuntu distributions include Peppermint OS (https://peppermintos.com/) and
 Lubuntu (https://lubuntu.net/). For a lightweight Fedora-based distribution, try the LXDE desktop
